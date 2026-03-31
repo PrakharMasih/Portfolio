@@ -992,6 +992,31 @@ body.pf-cursor-hide {
     background: var(--bg);
 }
 
+/* shader canvas sits flush behind all experience content */
+.exp-shader-host {
+    position: relative;
+    overflow: hidden;
+}
+
+.exp-shader-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
+
+html.light .exp-shader-canvas {
+    display: none;
+}
+
+.exp-shader-content {
+    position: relative;
+    z-index: 1;
+}
+
 .exp-timeline {
     position: relative;
     padding-left: 32px;
@@ -1069,7 +1094,7 @@ body.pf-cursor-hide {
     padding: 3px 10px;
     border: 1px solid var(--border2);
     font-size: 10px;
-    color: var(--text3);
+    color: var(--text2);
 }
 
 /* ---- CASE STUDIES ---- */

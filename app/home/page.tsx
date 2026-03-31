@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Globe } from '../components/ui/cobe-globe';
 import { ThemeToggle } from '../components/ThemeToggle';
+import ShaderBackground from '../components/ui/shader-background';
 
 // ---- helpers ----
 function fmtTime(d: Date) {
@@ -226,18 +227,24 @@ export default function PortfolioPage() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    // smooth anchor scroll
+    // smooth anchor scroll — delegated so it works with dynamically added anchors
     useEffect(() => {
-        const handler = (e: Event) => {
+        const handler = (e: MouseEvent) => {
+            const anchor = (e.target as Element).closest<HTMLAnchorElement>('a');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            if (!href || !href.startsWith('#') || href === '#') return;
             e.preventDefault();
-            const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-            const el = href ? document.querySelector(href) : null;
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try {
+                const el = document.querySelector(href);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch {
+                // invalid selector — let browser handle it
+            }
         };
-        const anchors = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
-        anchors.forEach((a) => a.addEventListener('click', handler));
-        return () => anchors.forEach((a) => a.removeEventListener('click', handler));
-    }, [loaderHidden]);
+        document.addEventListener('click', handler);
+        return () => document.removeEventListener('click', handler);
+    }, []);
 
     return (
         <div className="pf-root">
@@ -325,22 +332,6 @@ export default function PortfolioPage() {
                             <span className="hero-globe-dot" />
                             Remote — Worldwide
                         </div>
-                    </div>
-                </div>
-
-                {/* STATS */}
-                <div className="hero-stats">
-                    <div className="stat-item">
-                        <div className="stat-num counter" data-target="3">0+</div>
-                        <div className="stat-label">Years Experience</div>
-                    </div>
-                    <div className="stat-item">
-                        <div className="stat-num counter" data-target="10">0+</div>
-                        <div className="stat-label">Projects Built</div>
-                    </div>
-                    <div className="stat-item">
-                        <div className="stat-num counter" data-target="5">0+</div>
-                        <div className="stat-label">Client Deliveries</div>
                     </div>
                 </div>
 
@@ -561,36 +552,45 @@ export default function PortfolioPage() {
             </section>
 
             {/* ── EXPERIENCE ── */}
-            <section id="experience">
-                <div className="section-inner">
+            <section id="experience" className="exp-shader-host">
+                <ShaderBackground className="exp-shader-canvas" />
+                <div className="section-inner exp-shader-content">
                     <div className="section-label">04 — Experience</div>
                     <h2 className="section-title">Work <span className="accent">History</span></h2>
                     <div className="exp-timeline">
                         <div className="exp-item reveal">
-                            <div className="exp-period">2023 — Present</div>
-                            <div className="exp-role">AI Specialist &amp; Backend Developer</div>
-                            <div className="exp-company">Strollr (Remote Contract) · International Client</div>
-                            <div className="exp-desc">Delivered AI-powered features and backend systems for a remote-first team. Responsibilities included building ML/NLP pipelines, web scraping infrastructure, API development, performance optimization, and cross-timezone collaboration with developers and project managers.</div>
-                            <div className="exp-tags">
-                                {['AI/ML Integration', 'NLP', 'Web Scraping', 'FastAPI', 'Remote Team', 'Documentation'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
-                            </div>
-                        </div>
-                        <div className="exp-item reveal">
-                            <div className="exp-period">2022 — 2023</div>
+                            <div className="exp-period">Jan/2025 — Jan/2026</div>
                             <div className="exp-role">Backend Developer</div>
-                            <div className="exp-company">Software Company · Full-time</div>
-                            <div className="exp-desc">Built production-grade REST APIs with FastAPI and MongoDB. Designed database schemas for complex applications, built aggregation pipelines, optimized query performance, wrote test suites, and collaborated on system architecture decisions.</div>
+                            <div className="exp-company">ShiftBoolean · (Remote, IND)</div>
+                            <div className="exp-desc">
+                                Built and scaled FastAPI backend services using async architecture, query optimization, and Redis caching, significantly improving API performance, reliability, and system throughput. Designed a graph-based friend recommendation system using Neo4j and optimized MongoDB aggregations to deliver low-latency, high-relevance suggestions with strong system stability through robust testing.
+                            </div>
                             <div className="exp-tags">
-                                {['FastAPI', 'MongoDB', 'PostgreSQL', 'System Design', 'Pytest', 'Code Review'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
+                                {['FastAPI', 'Redis', 'Neo4j', 'MongoDB', 'Async Systems', 'System Design'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
                             </div>
                         </div>
+
                         <div className="exp-item reveal">
-                            <div className="exp-period">2021 — 2022</div>
-                            <div className="exp-role">Freelance Backend Developer</div>
-                            <div className="exp-company">Independent · Remote Clients</div>
-                            <div className="exp-desc">Delivered multiple backend systems for independent clients, including API development, database design, and automation scripts. Established working patterns for async communication and remote delivery.</div>
+                            <div className="exp-period">Nov/2024 — Jan/2025</div>
+                            <div className="exp-role">AI/ML Engineer</div>
+                            <div className="exp-company">Strollr · (Remote Contract, AU)</div>
+                            <div className="exp-desc">
+                                Delivered AI-driven backend systems and features for a remote-first product, including NLP pipelines, web scraping infrastructure, and high-performance APIs. Collaborated across time zones to ship reliable, production-ready systems with a strong focus on scalability, performance, and clean architecture.
+                            </div>
                             <div className="exp-tags">
-                                {['Python', 'REST APIs', 'Automation', 'Client Delivery'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
+                                {['AI/ML', 'NLP', 'FastAPI', 'MongoDB', 'PostgreSQL', 'Remote Collaboration'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
+                            </div>
+                        </div>
+
+                        <div className="exp-item reveal">
+                            <div className="exp-period">Oct/2023 — Nov/2024</div>
+                            <div className="exp-role">AI-Focused Backend Developer</div>
+                            <div className="exp-company">Madeline & Co. · (NYC, Remote Collaboration)</div>
+                            <div className="exp-desc">
+                                Built AI-powered backend systems for business automation, content generation, and research workflows, including API development, database design, and automation pipelines. Established efficient remote delivery practices, enabling consistent execution and collaboration across distributed teams.
+                            </div>
+                            <div className="exp-tags">
+                                {['Python', 'REST APIs', 'Automation', 'System Design', 'Client Delivery'].map((t) => <span key={t} className="exp-tag">{t}</span>)}
                             </div>
                         </div>
                     </div>
@@ -658,9 +658,9 @@ export default function PortfolioPage() {
                             <div className="contact-tagline">Let&apos;s build something<br /><span className="accent">extraordinary.</span></div>
                             <p className="contact-para">Whether you need a scalable backend, an AI automation system, or a data pipeline — I&apos;m ready to help. Remote-first, deadline-driven, and easy to work with.</p>
                             <div className="contact-links">
-                                <a href="mailto:prakhar@example.com" className="contact-link">
+                                <a href="mailto:prakhar2002masih@gmail.com" className="contact-link">
                                     <div className="contact-link-icon">✉</div>
-                                    <div className="contact-link-text"><div className="contact-link-label">Email</div><div className="contact-link-val">prakhar@example.com</div></div>
+                                    <div className="contact-link-text"><div className="contact-link-label">Email</div><div className="contact-link-val">prakhar2002masih@gmail.com</div></div>
                                     <div className="contact-link-arrow">→</div>
                                 </a>
                                 <a href="https://github.com/prakharmasih" target="_blank" rel="noopener noreferrer" className="contact-link">
@@ -670,12 +670,12 @@ export default function PortfolioPage() {
                                     <div className="contact-link-text"><div className="contact-link-label">GitHub</div><div className="contact-link-val">github.com/prakharmasih</div></div>
                                     <div className="contact-link-arrow">→</div>
                                 </a>
-                                <a href="https://linkedin.com/in/prakharmasih" target="_blank" rel="noopener noreferrer" className="contact-link">
+                                <a href="https://www.linkedin.com/in/prakhar-masih-004ba6214/" target="_blank" rel="noopener noreferrer" className="contact-link">
                                     <div className="contact-link-icon">in</div>
-                                    <div className="contact-link-text"><div className="contact-link-label">LinkedIn</div><div className="contact-link-val">linkedin.com/in/prakharmasih</div></div>
+                                    <div className="contact-link-text"><div className="contact-link-label">LinkedIn</div><div className="contact-link-val">linkedin.com/in/prakhar-masih-004ba6214/</div></div>
                                     <div className="contact-link-arrow">→</div>
                                 </a>
-                                <a href="#" className="contact-link">
+                                <a href="https://calendly.com/prakharmasih" target="_blank" rel="noopener noreferrer" className="contact-link">
                                     <div className="contact-link-icon">📅</div>
                                     <div className="contact-link-text"><div className="contact-link-label">Schedule a Call</div><div className="contact-link-val">calendly.com/prakharmasih</div></div>
                                     <div className="contact-link-arrow">→</div>
