@@ -108,6 +108,12 @@ body {
   animation: fadeIn 1.6s ease both;
 }
 
+@media (max-width: 768px) {
+  .anim-fadein {
+    animation-duration: 0.8s;
+  }
+}
+
 .anim-fadeup {
   animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
