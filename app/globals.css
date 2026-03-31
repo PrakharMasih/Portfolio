@@ -30,6 +30,18 @@ body {
   }
 }
 
+@keyframes smokeMobile {
+  from {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -110,7 +122,7 @@ body {
 
 @media (max-width: 768px) {
   .anim-fadein {
-    animation-duration: 0.2s;
+    animation: smokeMobile 0.3s ease-out both;
   }
 }
 
