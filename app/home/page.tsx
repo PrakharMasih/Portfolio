@@ -269,7 +269,7 @@ export default function PortfolioPage() {
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#casestudies">Case Studies</a></li>
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#contact" className="nav-cta">Hire Me</a></li>
+                    <li><a href="#contact" className="nav-cta">Let's Connect</a></li>
                 </ul>
                 <ThemeToggle />
             </nav>
@@ -283,7 +283,7 @@ export default function PortfolioPage() {
                 <div className="hero-content">
                     <div className="hero-tag">
                         <div className="hero-tag-dot" />
-                        Available for Remote Contracts — Worldwide
+                        Available for Contracts/jobs — Worldwide
                     </div>
                     <h1 className="hero-name glitch">
                         <span className="line1">AI &amp; Backend</span>

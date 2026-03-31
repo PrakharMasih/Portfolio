@@ -110,7 +110,7 @@ body {
 
 @media (max-width: 768px) {
   .anim-fadein {
-    animation-duration: 0.8s;
+    animation-duration: 0.2s;
   }
 }
 
