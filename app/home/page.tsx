@@ -689,10 +689,10 @@ export default function PortfolioPage() {
                                 <div className="avail-sub">Available for part-time and full-time remote work. Comfortable working with teams in US, EU, and APAC time zones.</div>
                                 <LiveClock />
                             </div>
-                            <a href="#" className="btn-primary" style={{ width: '100%', justifyContent: 'center', clipPath: 'none', borderRadius: '2px' }}>
+                            {/* <a href="#" className="btn-primary" style={{ width: '100%', justifyContent: 'center', clipPath: 'none', borderRadius: '2px' }}>
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" /></svg>
                                 Download Resume
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </div>
@@ -700,8 +700,7 @@ export default function PortfolioPage() {
 
             {/* ── FOOTER ── */}
             <footer>
-                <div className="footer-left">© 2025 Prakhar Masih — Backend &amp; AI Systems Developer — India</div>
-                <div className="footer-right">Built with <span>❤</span> &amp; <span>code</span></div>
+                <div className="footer-left">© 2025 Prakhar Masih — Backend &amp; AI Developer — India</div>
             </footer>
         </div>
     );
