@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Globe } from '../components/ui/cobe-globe';
 import { ThemeToggle } from '../components/ThemeToggle';
-import ShaderBackground from '../components/ui/shader-background';
 
 // ---- helpers ----
 function fmtTime(d: Date) {
@@ -483,6 +482,7 @@ export default function PortfolioPage() {
                             <div className="project-tag">Data + Scraping</div>
                             <div className="project-name">AI Prospecting &amp; Lead Intelligence Tool</div>
                             <div className="project-desc">
+                                Your mind, your space, completely untouchable.
                                 Location-based prospecting system: query → website discovery → scrape → AI-powered structured
                                 extraction → clean JSON output. Fully automated lead generation pipeline.
                             </div>
@@ -553,7 +553,6 @@ export default function PortfolioPage() {
 
             {/* ── EXPERIENCE ── */}
             <section id="experience" className="exp-shader-host">
-                <ShaderBackground className="exp-shader-canvas" />
                 <div className="section-inner exp-shader-content">
                     <div className="section-label">04 — Experience</div>
                     <h2 className="section-title">Work <span className="accent">History</span></h2>
@@ -689,10 +688,6 @@ export default function PortfolioPage() {
                                 <div className="avail-sub">Available for part-time and full-time remote work. Comfortable working with teams in US, EU, and APAC time zones.</div>
                                 <LiveClock />
                             </div>
-                            {/* <a href="#" className="btn-primary" style={{ width: '100%', justifyContent: 'center', clipPath: 'none', borderRadius: '2px' }}>
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" /></svg>
-                                Download Resume
-                            </a> */}
                         </div>
                     </div>
                 </div>
