@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Globe } from '../components/ui/cobe-globe';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { Chatbot } from '../components/Chatbot';
 
 // ---- helpers ----
 function fmtTime(d: Date) {
@@ -697,6 +698,9 @@ export default function PortfolioPage() {
             <footer>
                 <div className="footer-left">© 2025 Prakhar Masih — Backend &amp; AI Developer — India</div>
             </footer>
+
+            {/* ── AI CHATBOT ── */}
+            <Chatbot />
         </div>
     );
 }

@@ -1789,3 +1789,382 @@ html.light .pf-root ::-webkit-scrollbar-track {
         gap: 12px;
     }
 }
+
+/* ================================================================
+   CHATBOT
+   Floating AI assistant — scoped inside .pf-root
+================================================================ */
+
+/* ── FAB (Floating Action Button) ── */
+.cb-fab {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 500;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--cyan);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px rgba(129, 140, 248, 0.18), var(--glow2);
+    transition: box-shadow 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.cb-fab:hover {
+    background: var(--surface2);
+    box-shadow: 0 6px 32px rgba(129, 140, 248, 0.32), var(--glow);
+    transform: translateY(-2px);
+}
+
+.cb-fab--active {
+    background: var(--cyan2);
+    border-color: var(--cyan);
+    color: #fff;
+}
+
+.cb-fab-icon {
+    position: absolute;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cb-fab-icon--chat {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.cb-fab-icon--close {
+    opacity: 0;
+    transform: scale(0.6) rotate(-45deg);
+}
+
+.cb-fab--active .cb-fab-icon--chat {
+    opacity: 0;
+    transform: scale(0.6) rotate(45deg);
+}
+
+.cb-fab--active .cb-fab-icon--close {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* ── CHAT WINDOW ── */
+.cb-window {
+    position: fixed;
+    bottom: 96px;
+    right: 32px;
+    z-index: 499;
+    width: 380px;
+    max-height: 560px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(13, 17, 25, 0.9);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border2), var(--glow2);
+    font-family: var(--font-mono, 'JetBrains Mono'), monospace;
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.cb-window--open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+html.light .cb-window {
+    background: rgba(240, 241, 249, 0.92);
+}
+
+/* ── HEADER ── */
+.cb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
+}
+
+.cb-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cb-avatar {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+.cb-avatar-dot {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 1.5px solid var(--bg);
+}
+
+.cb-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    line-height: 1;
+}
+
+.cb-title-dot {
+    color: var(--cyan);
+}
+
+.cb-subtitle {
+    font-size: 10px;
+    color: var(--text2);
+    margin-top: 2px;
+    letter-spacing: 0.06em;
+}
+
+.cb-close {
+    background: none;
+    border: none;
+    color: var(--text2);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, background 0.2s;
+}
+
+.cb-close:hover {
+    color: var(--text);
+    background: var(--surface2);
+}
+
+/* ── MESSAGES ── */
+.cb-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.cb-messages::-webkit-scrollbar {
+    width: 3px;
+}
+
+.cb-messages::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.cb-msg {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+}
+
+.cb-msg--user {
+    flex-direction: row-reverse;
+}
+
+.cb-msg-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+.cb-bubble {
+    max-width: 82%;
+    padding: 9px 13px;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.cb-msg--assistant .cb-bubble {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-bottom-left-radius: 0;
+}
+
+.cb-msg--user .cb-bubble {
+    background: rgba(99, 102, 241, 0.18);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--text);
+    border-bottom-right-radius: 0;
+}
+
+/* ── TYPING INDICATOR ── */
+.cb-typing {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 14px;
+}
+
+.cb-typing span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: cbPulse 1.2s ease-in-out infinite;
+}
+
+.cb-typing span:nth-child(2) { animation-delay: 0.2s; }
+.cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes cbPulse {
+    0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+    40%            { opacity: 1;    transform: scale(1);   }
+}
+
+/* ── SUGGESTIONS ── */
+.cb-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.cb-suggestion {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text2);
+    font-family: var(--font-mono, 'JetBrains Mono'), monospace;
+    font-size: 11px;
+    padding: 7px 10px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.cb-suggestion:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    background: rgba(129, 140, 248, 0.05);
+}
+
+/* ── INPUT AREA ── */
+.cb-input-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid var(--border2);
+    flex-shrink: 0;
+}
+
+.cb-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    font-family: var(--font-mono, 'JetBrains Mono'), monospace;
+    font-size: 12px;
+    padding: 8px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.cb-input::placeholder {
+    color: var(--text3);
+}
+
+.cb-input:focus {
+    border-color: var(--cyan);
+}
+
+.cb-input:disabled {
+    opacity: 0.5;
+}
+
+.cb-send {
+    width: 34px;
+    height: 34px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--cyan);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.cb-send:hover:not(:disabled) {
+    background: var(--cyan2);
+    border-color: var(--cyan);
+    color: #fff;
+    box-shadow: var(--glow2);
+}
+
+.cb-send:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+    .cb-fab {
+        bottom: 20px;
+        right: 16px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .cb-window {
+        bottom: 78px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        max-height: 70vh;
+    }
+}
