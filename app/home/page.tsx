@@ -454,6 +454,7 @@ export default function PortfolioPage() {
                     <h2 className="section-title">What I&apos;ve <span className="accent">Built</span></h2>
                     <div className="projects-grid">
 
+                        {/* Row 1 — featured (7) + medium (5) = 12 */}
                         <div className="project-card featured reveal">
                             <div className="project-num">001</div>
                             <div className="project-tag">AI + Automation</div>
@@ -467,7 +468,7 @@ export default function PortfolioPage() {
                                 {['Python', 'LLM APIs', 'FastAPI', 'Prompt Engineering', 'Video Gen'].map((t) => <span key={t} className="project-tech">{t}</span>)}
                             </div>
                             <div className="project-footer">
-                                <a href="#" className="project-link">View Details <ArrowSvg /></a>
+                                <a href="https://github.com/PrakharMasih/Comedy_Show_Ai_Generator" target="_blank" rel="noopener noreferrer" className="project-link">View on GitHub <ArrowSvg /></a>
                             </div>
                             <svg className="project-visual" viewBox="0 0 140 140" fill="none">
                                 <circle cx="70" cy="70" r="60" stroke="currentColor" strokeWidth="1" />
@@ -480,72 +481,54 @@ export default function PortfolioPage() {
 
                         <div className="project-card medium reveal">
                             <div className="project-num">002</div>
-                            <div className="project-tag">Data + Scraping</div>
-                            <div className="project-name">AI Prospecting &amp; Lead Intelligence Tool</div>
+                            <div className="project-tag">AI + RAG</div>
+                            <div className="project-name">Knowledgebase RAG Chatbot</div>
                             <div className="project-desc">
-                                Your mind, your space, completely untouchable.
-                                Location-based prospecting system: query → website discovery → scrape → AI-powered structured
-                                extraction → clean JSON output. Fully automated lead generation pipeline.
+                                Knowledge base chatbot built with a Retrieval-Augmented Generation (RAG) approach that
+                                answers queries strictly from indexed documents. Ensures accurate, concise, and
+                                source-backed responses — no hallucination, only grounded answers.
                             </div>
                             <div className="project-stack">
-                                {['Python', 'Web Scraping', 'OpenAI', 'FastAPI', 'PostgreSQL'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                                {['Python', 'RAG', 'LLM APIs', 'Vector DB', 'Embeddings'].map((t) => <span key={t} className="project-tech">{t}</span>)}
                             </div>
-                            <div className="project-footer"><a href="#" className="project-link">View Details <ArrowSvg /></a></div>
+                            <div className="project-footer">
+                                <a href="https://github.com/PrakharMasih/Knowledgebase_chatbot" target="_blank" rel="noopener noreferrer" className="project-link">View on GitHub <ArrowSvg /></a>
+                            </div>
                         </div>
 
+                        {/* Row 2 — half (6) + half (6) = 12 */}
                         <div className="project-card half reveal">
                             <div className="project-num">003</div>
-                            <div className="project-tag">Backend Architecture</div>
-                            <div className="project-name">Ride Management System</div>
-                            <div className="project-desc">Complex multi-entity backend with itinerary planning, MongoDB aggregation, route optimization, and real-time ride state management.</div>
-                            <div className="project-stack">
-                                {['FastAPI', 'MongoDB', 'Redis', 'Async'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                            <div className="project-tag">AI + Legal Domain</div>
+                            <div className="project-name">AI Lawyer Chatbot</div>
+                            <div className="project-desc">
+                                Domain-specific legal assistant built on top of LLMs with targeted prompt engineering
+                                for legal reasoning. Answers law-related queries with contextual accuracy and structured
+                                argumentation.
                             </div>
-                            <div className="project-footer"><a href="#" className="project-link">View Details <ArrowSvg /></a></div>
+                            <div className="project-stack">
+                                {['Python', 'LLM APIs', 'Prompt Engineering', 'Domain AI'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                            </div>
+                            <div className="project-footer">
+                                <a href="https://github.com/PrakharMasih/Ai_Lawyer_ChatBot" target="_blank" rel="noopener noreferrer" className="project-link">View on GitHub <ArrowSvg /></a>
+                            </div>
                         </div>
 
                         <div className="project-card half reveal">
                             <div className="project-num">004</div>
-                            <div className="project-tag">Social Graph</div>
-                            <div className="project-name">Friend Suggestion System</div>
-                            <div className="project-desc">Graph-based social recommendation engine using Neo4j for relationship traversal, MongoDB for user data, and Redis for caching hot suggestions.</div>
-                            <div className="project-stack">
-                                {['Neo4j', 'MongoDB', 'Redis', 'FastAPI'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                            <div className="project-tag">Web3 + Blockchain</div>
+                            <div className="project-name">DApp — My eDiary</div>
+                            <div className="project-desc">
+                                Decentralized personal diary application built on blockchain. Entries are stored on-chain,
+                                giving users full ownership and immutability of their private records — no central server,
+                                no data exposure.
                             </div>
-                            <div className="project-footer"><a href="#" className="project-link">View Details <ArrowSvg /></a></div>
-                        </div>
-
-                        <div className="project-card third reveal">
-                            <div className="project-num">005</div>
-                            <div className="project-tag">Content Platform</div>
-                            <div className="project-name">Blogging Platform Backend</div>
-                            <div className="project-desc">Full REST API backend with auth, roles, media via MinIO.</div>
                             <div className="project-stack">
-                                {['FastAPI', 'PostgreSQL', 'MinIO', 'JWT'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                                {['JavaScript', 'Solidity', 'Web3.js', 'Blockchain', 'DApp'].map((t) => <span key={t} className="project-tech">{t}</span>)}
                             </div>
-                            <div className="project-footer"><a href="#" className="project-link">Details <ArrowSvg /></a></div>
-                        </div>
-
-                        <div className="project-card third reveal">
-                            <div className="project-num">006</div>
-                            <div className="project-tag">Communication</div>
-                            <div className="project-name">Multi-Channel Notification System</div>
-                            <div className="project-desc">WhatsApp, Email, Telegram, SMS unified integration layer.</div>
-                            <div className="project-stack">
-                                {['FastAPI', 'Twilio', 'Telegram API'].map((t) => <span key={t} className="project-tech">{t}</span>)}
+                            <div className="project-footer">
+                                <a href="https://github.com/PrakharMasih/Dapp_MyEdiary" target="_blank" rel="noopener noreferrer" className="project-link">View on GitHub <ArrowSvg /></a>
                             </div>
-                            <div className="project-footer"><a href="#" className="project-link">Details <ArrowSvg /></a></div>
-                        </div>
-
-                        <div className="project-card third reveal">
-                            <div className="project-num">007</div>
-                            <div className="project-tag">AI + NLP</div>
-                            <div className="project-name">Language Learning Chatbot</div>
-                            <div className="project-desc">Conversational AI tutor with adaptive difficulty and NLP comprehension scoring.</div>
-                            <div className="project-stack">
-                                {['Claude API', 'NLP', 'FastAPI'].map((t) => <span key={t} className="project-tech">{t}</span>)}
-                            </div>
-                            <div className="project-footer"><a href="#" className="project-link">Details <ArrowSvg /></a></div>
                         </div>
 
                     </div>

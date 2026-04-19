@@ -60,6 +60,17 @@ body.pf-cursor-hide {
     cursor: none;
 }
 
+@media (pointer: coarse) {
+    body.pf-cursor-hide {
+        cursor: auto;
+    }
+
+    .pf-cursor,
+    .pf-cursor-ring {
+        display: none !important;
+    }
+}
+
 /* ---- SCROLLBAR ---- */
 .pf-root ::-webkit-scrollbar {
     width: 3px;
@@ -867,6 +878,7 @@ body.pf-cursor-hide {
     background: linear-gradient(135deg, rgba(129, 140, 248, 0.04) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s;
+    pointer-events: none;
 }
 
 .project-card:hover {
@@ -1738,7 +1750,28 @@ html.light .pf-root ::-webkit-scrollbar-track {
 /* ---- RESPONSIVE ---- */
 @media (max-width: 1024px) {
     .hero-right {
-        display: none;
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        margin-top: 48px;
+    }
+
+    #hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 80px;
+    }
+
+    .hero-globe-wrap {
+        width: 320px;
+        height: 320px;
+    }
+
+    .hero-globe {
+        width: 300px !important;
+        height: 300px !important;
     }
 
     .about-grid {
@@ -2053,12 +2086,27 @@ html.light .cb-window {
     animation: cbPulse 1.2s ease-in-out infinite;
 }
 
-.cb-typing span:nth-child(2) { animation-delay: 0.2s; }
-.cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+.cb-typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.cb-typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
 
 @keyframes cbPulse {
-    0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
-    40%            { opacity: 1;    transform: scale(1);   }
+
+    0%,
+    80%,
+    100% {
+        opacity: 0.25;
+        transform: scale(0.8);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* ── SUGGESTIONS ── */
