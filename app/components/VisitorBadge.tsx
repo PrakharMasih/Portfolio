@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react';
 
 const ADMIN_IP = process.env.NEXT_PUBLIC_ADMIN_IP ?? '';
-const NS = 'prakharmasih-pf';   // unique namespace on counterapi.dev
+const NS = 'prakharmasih-pf';
 const KEY = 'visits';
 const API_BASE = `https://api.counterapi.dev/v1/${NS}/${KEY}`;
-const LS_KEY = 'pf_last_counted';
+const LS_COUNTED = 'pf_last_counted';
+const LS_COUNT = 'pf_last_count';
 const TTL_MS = 24 * 60 * 60 * 1000; // 24 h
 
 export default function VisitorBadge() {
@@ -14,36 +15,43 @@ export default function VisitorBadge() {
 
     useEffect(() => {
         async function run() {
-            // 1. Detect current public IP
+            // 1. Check URL param fallback — ?admin=1 always shows badge
+            const isAdminParam = new URLSearchParams(window.location.search).get('admin') === '1';
+
+            // 2. Detect IPv4 specifically (avoids IPv6 mismatch)
             let ip = '';
             try {
-                const res = await fetch('https://api.ipify.org?format=json');
+                const res = await fetch('https://api4.ipify.org?format=json');
                 ip = ((await res.json()) as { ip: string }).ip ?? '';
             } catch {
-                // network blocked — silently skip
-                return;
+                // ipify unavailable — fall through to param check only
             }
 
-            // 2. Deduplicate: only increment once per 24 h per browser
-            const last = localStorage.getItem(LS_KEY);
+            const isAdmin = isAdminParam || (ADMIN_IP !== '' && ip === ADMIN_IP);
+
+            // 3. Deduplicate: increment at most once per 24 h per browser
+            const last = localStorage.getItem(LS_COUNTED);
             const now = Date.now();
             const doCount = !last || now - Number(last) > TTL_MS;
 
-            let value = 0;
+            let value = Number(localStorage.getItem(LS_COUNT) ?? 0); // cached fallback
+
             try {
-                const url = doCount ? `${API_BASE}/up` : API_BASE;
+                // Always call /up when it's time to count; plain GET otherwise
+                const url = doCount ? `${API_BASE}/up` : `${API_BASE}`;
                 const res = await fetch(url);
-                const json = (await res.json()) as { value: number };
-                value = json.value ?? 0;
-                if (doCount) localStorage.setItem(LS_KEY, String(now));
+                const json = (await res.json()) as { value?: number; count?: number };
+                const fetched = json.value ?? json.count ?? null;
+                if (fetched !== null) {
+                    value = fetched;
+                    localStorage.setItem(LS_COUNT, String(value)); // keep cache fresh
+                }
+                if (doCount) localStorage.setItem(LS_COUNTED, String(now));
             } catch {
-                return;
+                // network error — use cached value if admin
             }
 
-            // 3. Only render badge for your IP
-            if (ADMIN_IP && ip === ADMIN_IP) {
-                setCount(value);
-            }
+            if (isAdmin) setCount(value);
         }
 
         run();
