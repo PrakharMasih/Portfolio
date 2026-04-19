@@ -31,7 +31,7 @@ const GLOBE_ARCS = [
 
 // ---- isolated clock component (state changes never re-render PortfolioPage) ----
 function LiveClock() {
-    const [times, setTimes] = useState({ ist: '--:--', est: '--:--', pst: '--:--', cet: '--:--' });
+    const [times, setTimes] = useState({ ist: '--:--', est: '--:--', pst: '--:--', cet: '--:--', aest: '--:--' });
     useEffect(() => {
         const update = () => {
             const now = new Date();
@@ -40,6 +40,7 @@ function LiveClock() {
                 est: fmtTime(new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }))),
                 pst: fmtTime(new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }))),
                 cet: fmtTime(new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }))),
+                aest: fmtTime(new Date(now.toLocaleString('en-US', { timeZone: 'Australia/Sydney' }))),
             });
         };
         update();
@@ -52,6 +53,7 @@ function LiveClock() {
             <div className="tz-item"><span className="tz-name">EST (New York)</span><span className="tz-val">{times.est}</span></div>
             <div className="tz-item"><span className="tz-name">PST (San Francisco)</span><span className="tz-val">{times.pst}</span></div>
             <div className="tz-item"><span className="tz-name">CET (Berlin)</span><span className="tz-val">{times.cet}</span></div>
+            <div className="tz-item"><span className="tz-name">AEST (Sydney)</span><span className="tz-val">{times.aest}</span></div>
         </div>
     );
 }
