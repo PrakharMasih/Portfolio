@@ -79,6 +79,18 @@ export default function PortfolioPage() {
     const [loaderHidden, setLoaderHidden] = useState(false);
     const [fillActive, setFillActive] = useState(false);
     const [loaderText, setLoaderText] = useState('Initializing systems...');
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
+
+    // Music tracks (royalty-free soothing music from /public/music/)
+    // To add your own: place .mp3 files in public/music/ with names: ambient.mp3, peaceful.mp3, piano.mp3
+    const musicTracks = [
+        { name: 'Ambient Dreams', url: '/music/ambient.mp3' },
+        { name: 'Peaceful Vibes', url: '/music/peaceful.mp3' },
+        { name: 'Calm Piano', url: '/music/piano.mp3' },
+    ];
+
+    const audioRef = useRef<HTMLAudioElement>(null);
 
     // Keep a ref so canvas RAF loop can read theme without restarting
     const themeRef = useRef(isDark);
@@ -139,6 +151,73 @@ export default function PortfolioPage() {
         raf = requestAnimationFrame(tick);
         return () => { document.removeEventListener('mousemove', move); cancelAnimationFrame(raf); };
     }, []);
+
+    // music player initialization and controls
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        // Restore play state from localStorage
+        const savedIsPlaying = localStorage.getItem('pf-music-playing') === 'true';
+        const savedTrackIdx = parseInt(localStorage.getItem('pf-music-track') || '0', 10);
+
+        setCurrentTrackIdx(savedTrackIdx);
+        audio.src = musicTracks[savedTrackIdx].url;
+        audio.volume = 0.3;
+        audio.loop = true;
+
+        // Try to play if was playing before (muted due to browser policy)
+        if (savedIsPlaying) {
+            audio.muted = true;
+            audio.play().catch(() => {
+                // Autoplay blocked - will play when user clicks icon
+            });
+            setIsPlaying(true);
+        }
+
+        return () => {
+            // Save state on unmount
+            localStorage.setItem('pf-music-playing', String(isPlaying));
+            localStorage.setItem('pf-music-track', String(currentTrackIdx));
+        };
+    }, []);
+
+    // Handle track changes
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio || !isPlaying) return;
+
+        audio.src = musicTracks[currentTrackIdx].url;
+        audio.currentTime = 0;
+        audio.play().catch(() => { });
+    }, [currentTrackIdx]);
+
+    // Handle play/pause state
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        if (isPlaying) {
+            // First time playing - unmute and play
+            audio.muted = false;
+            audio.play().catch(() => { });
+        } else {
+            audio.pause();
+        }
+
+        // Save state
+        localStorage.setItem('pf-music-playing', String(isPlaying));
+    }, [isPlaying]);
+
+    const toggleMusic = () => {
+        setIsPlaying(!isPlaying);
+    };
+
+    const nextTrack = () => {
+        const next = (currentTrackIdx + 1) % musicTracks.length;
+        setCurrentTrackIdx(next);
+        localStorage.setItem('pf-music-track', String(next));
+    };
 
     // cursor hover expand
     useEffect(() => {
@@ -206,7 +285,16 @@ export default function PortfolioPage() {
         const obs = new IntersectionObserver((entries) => {
             entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+        const revealEls = document.querySelectorAll('.reveal');
+        revealEls.forEach((el) => {
+            obs.observe(el);
+            // Immediately add visible class if already in viewport
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('visible');
+                obs.unobserve(el);
+            }
+        });
         return () => obs.disconnect();
     }, [loaderHidden]);
 
@@ -280,8 +368,32 @@ export default function PortfolioPage() {
                     <li><a href="#services">Services</a></li>
                     <li><a href="#contact" className="nav-cta">Let's Connect</a></li>
                 </ul>
-                <ThemeToggle />
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <button
+                        onClick={toggleMusic}
+                        onContextMenu={(e) => { e.preventDefault(); nextTrack(); }}
+                        title={`${isPlaying ? 'Pause' : 'Play'} Music (Right-click for next track) - ${musicTracks[currentTrackIdx].name}`}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '20px',
+                            opacity: isPlaying ? 1 : 0.5,
+                            transition: 'opacity 0.3s',
+                            padding: '4px 8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        {isPlaying ? '♪' : '♫'}
+                    </button>
+                    <ThemeToggle />
+                </div>
             </nav>
+
+            {/* ── AUDIO ELEMENT ── */}
+            <audio ref={audioRef} crossOrigin="anonymous" />
 
             {/* ── HERO ── */}
             <section id="hero">
