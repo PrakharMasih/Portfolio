@@ -1888,6 +1888,53 @@ html.light .pf-root ::-webkit-scrollbar-track {
 
     .contact-grid {
         grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    #contact {
+        padding: 50px 60px;
+        min-height: auto;
+    }
+
+    .contact-tagline {
+        font-size: clamp(24px, 3.5vw, 40px);
+        margin-bottom: 20px;
+    }
+
+    .contact-para {
+        font-size: 12px;
+        margin-bottom: 32px;
+    }
+
+    .contact-link {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .contact-link-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .contact-link-label {
+        font-size: 8px;
+    }
+
+    .contact-link-val {
+        font-size: 12px;
+    }
+
+    .avail-card {
+        padding: 24px;
+    }
+
+    .avail-text {
+        font-size: 18px;
+    }
+
+    .avail-sub {
+        font-size: 10px;
     }
 
     .cases-grid {
@@ -1917,6 +1964,69 @@ html.light .pf-root ::-webkit-scrollbar-track {
 
     .section-inner {
         padding: 60px 24px;
+    }
+
+    #contact {
+        padding: 40px 24px;
+        min-height: auto;
+    }
+
+    .contact-grid {
+        gap: 40px;
+    }
+
+    .contact-tagline {
+        font-size: clamp(20px, 3vw, 32px);
+        margin-bottom: 16px;
+    }
+
+    .contact-para {
+        font-size: 11px;
+        margin-bottom: 24px;
+    }
+
+    .contact-link {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .contact-link-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .contact-link-label {
+        font-size: 7px;
+    }
+
+    .contact-link-val {
+        font-size: 11px;
+    }
+
+    .contact-link-arrow {
+        font-size: 12px;
+    }
+
+    .avail-card {
+        padding: 20px;
+        margin-bottom: 0;
+    }
+
+    .avail-text {
+        font-size: 16px;
+    }
+
+    .avail-sub {
+        font-size: 9px;
+    }
+
+    .timezone-list {
+        gap: 12px;
+    }
+
+    .tz-item {
+        font-size: 10px;
     }
 
     #hero {
@@ -2571,6 +2681,96 @@ html.light .cb-code-block {
 @media (max-width: 480px) {
     .pf-root footer {
         padding: 20px 16px;
+    }
+
+    #contact {
+        padding: 32px 16px;
+        min-height: auto;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .contact-tagline {
+        font-size: clamp(18px, 2.5vw, 28px);
+        margin-bottom: 12px;
+    }
+
+    .contact-para {
+        font-size: 10px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .contact-links {
+        gap: 12px;
+    }
+
+    .contact-link {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .contact-link-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .contact-link-label {
+        font-size: 6px;
+        letter-spacing: 0.15em;
+    }
+
+    .contact-link-val {
+        font-size: 10px;
+    }
+
+    .contact-link-arrow {
+        font-size: 11px;
+    }
+
+    .contact-link-text {
+        min-width: 0;
+    }
+
+    .avail-card {
+        padding: 16px;
+        margin-bottom: 0;
+    }
+
+    .avail-header {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .avail-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .avail-label {
+        font-size: 9px;
+    }
+
+    .avail-text {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .avail-sub {
+        font-size: 8px;
+        line-height: 1.5;
+    }
+
+    .timezone-list {
+        gap: 8px;
+    }
+
+    .tz-item {
+        font-size: 9px;
     }
 
     .cb-fab {
