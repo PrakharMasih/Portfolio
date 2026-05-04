@@ -1248,7 +1248,34 @@ html.light .exp-shader-canvas {
 
 /* ---- CONTACT ---- */
 #contact {
-    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    padding: 60px 80px;
+}
+
+#contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(9, 12, 18, 0.3) 0%, rgba(9, 12, 18, 0.25) 50%, rgba(13, 17, 25, 0.3) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.contact-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
+#contact .section-inner {
+    position: relative;
+    z-index: 2;
 }
 
 .contact-grid {
@@ -1264,18 +1291,21 @@ html.light .exp-shader-canvas {
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: var(--text);
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
     margin-bottom: 24px;
 }
 
 .contact-tagline .accent {
-    color: var(--cyan);
+    color: #818cf8;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .contact-para {
     font-size: 13px;
     line-height: 1.9;
-    color: var(--text2);
+    color: #f0f4ff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     margin-bottom: 40px;
 }
 
@@ -1290,16 +1320,18 @@ html.light .exp-shader-canvas {
     align-items: center;
     gap: 16px;
     padding: 16px 20px;
-    border: 1px solid var(--border2);
-    background: var(--surface);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    background: rgba(17, 23, 34, 0.25);
+    backdrop-filter: blur(10px);
     text-decoration: none;
     transition: all 0.2s;
-    color: var(--text);
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .contact-link:hover {
-    border-color: var(--border);
-    background: var(--surface2);
+    border-color: rgba(129, 140, 248, 0.4);
+    background: rgba(17, 23, 34, 0.35);
 }
 
 .contact-link-icon {
@@ -1308,9 +1340,10 @@ html.light .exp-shader-canvas {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(129, 140, 248, 0.25);
     font-size: 14px;
     color: var(--cyan);
+    background: rgba(129, 140, 248, 0.08);
 }
 
 .contact-link-text {
@@ -1321,19 +1354,22 @@ html.light .exp-shader-canvas {
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--text3);
+    color: #a8b8e8;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     margin-bottom: 2px;
 }
 
 .contact-link-val {
     font-size: 13px;
-    color: var(--text);
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .contact-link-arrow {
-    color: var(--text3);
+    color: #a8b8e8;
     font-size: 14px;
     transition: all 0.2s;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .contact-link:hover .contact-link-arrow {
@@ -1342,8 +1378,9 @@ html.light .exp-shader-canvas {
 }
 
 .avail-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(17, 23, 34, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(129, 140, 248, 0.2);
     padding: 32px;
     margin-bottom: 24px;
     position: relative;
@@ -1370,20 +1407,23 @@ html.light .exp-shader-canvas {
     font-size: 11px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--green);
+    color: #6ee7b7;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .avail-text {
     font-family: var(--font-syne, 'Syne'), sans-serif;
     font-size: 20px;
     font-weight: 700;
-    color: var(--text);
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     margin-bottom: 8px;
 }
 
 .avail-sub {
     font-size: 11px;
-    color: var(--text2);
+    color: #e0e8f0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     line-height: 1.6;
 }
 
@@ -1399,17 +1439,19 @@ html.light .exp-shader-canvas {
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid var(--border2);
+    border-bottom: 1px solid rgba(129, 140, 248, 0.2);
     font-size: 11px;
 }
 
 .tz-name {
-    color: var(--text2);
+    color: #e0e8f0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .tz-val {
-    color: var(--cyan);
+    color: #818cf8;
     font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* ---- FOOTER ---- */
@@ -1728,19 +1770,85 @@ html.light .pf-root .case-card:hover {
 
 /* avail card in light */
 html.light .pf-root .avail-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(99, 102, 241, 0.2);
     box-shadow: 0 1px 4px rgba(26, 29, 46, 0.06), 0 8px 24px rgba(99, 102, 241, 0.07);
 }
 
+html.light .pf-root .avail-label {
+    color: #059669;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+html.light .pf-root .avail-text {
+    color: #1a1d2e;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+html.light .pf-root .avail-sub {
+    color: #4e5572;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+html.light .pf-root .tz-name {
+    color: #4e5572;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+html.light .pf-root .tz-val {
+    color: #6366f1;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Contact section light mode overlay */
+html.light .pf-root #contact::before {
+    background: linear-gradient(135deg, rgba(245, 246, 251, 0.08) 0%, rgba(245, 246, 251, 0.05) 50%, rgba(237, 238, 246, 0.08) 100%);
+}
+
 /* Contact links in light */
+html.light .pf-root .contact-link {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(99, 102, 241, 0.2);
+    color: #1a1d2e;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
 html.light .pf-root .contact-link:hover {
-    background: var(--surface2);
-    border-color: var(--border);
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+html.light .pf-root .contact-link-icon {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+html.light .pf-root .contact-link-label {
+    color: #4e5572;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+html.light .pf-root .contact-link-val {
+    color: #1a1d2e;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+html.light .pf-root .contact-tagline {
+    color: #1a1d2e;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.4);
+}
+
+html.light .pf-root .contact-para {
+    color: #4e5572;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 /* Footer */
 html.light .pf-root footer {
     border-top-color: var(--border2);
 }
+
+
 
 /* Scrollbar track in light */
 html.light .pf-root ::-webkit-scrollbar-track {
@@ -1792,6 +1900,10 @@ html.light .pf-root ::-webkit-scrollbar-track {
     .project-card.third {
         grid-column: span 12;
     }
+
+    .pf-root footer {
+        padding: 32px 48px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1818,8 +1930,6 @@ html.light .pf-root ::-webkit-scrollbar-track {
 
     .pf-root footer {
         padding: 24px;
-        flex-direction: column;
-        gap: 12px;
     }
 }
 
@@ -2459,6 +2569,10 @@ html.light .cb-code-block {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 480px) {
+    .pf-root footer {
+        padding: 20px 16px;
+    }
+
     .cb-fab {
         bottom: 20px;
         right: 16px;
